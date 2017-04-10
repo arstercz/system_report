@@ -1,0 +1,8 @@
+# Usage: --function trg_cpu_usage --threshold 30
+
+function trg_plugin()
+{
+   local mysqld_pids=$(pidof mysqld|sed -e 's/ /,/g')
+   local mysqld_nums=$(echo $mysqld_pids | grep -o -P '\d+' | wc -l)
+   top -d 0.2 -bn 5 -p $mysqld_pids | grep 'mysqld' | tail -n $mysqld_nums | perl -ane '$sum += $F[8]; END{print int($sum) . "\n"}'
+}
