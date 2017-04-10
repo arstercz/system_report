@@ -36,8 +36,11 @@ all self-defined function should be named `trg_plugin`.
 We had fixed the following bugs:
 
   [#1557877](https://bugs.launchpad.net/percona-toolkit/+bug/1557877)
+
   [#1644694](https://bugs.launchpad.net/percona-toolkit/+bug/1644694)
+
   [#976179](https://bugs.launchpad.net/percona-toolkit/+bug/976179)
+
   [#1083488](https://bugs.launchpad.net/percona-toolkit/+bug/1083488)
 
 and add the following features:
