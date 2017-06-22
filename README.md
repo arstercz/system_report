@@ -10,6 +10,13 @@ cd system_report
 ./run-pt-stalk interface mysql_port
 ```
 
+you can change user and password in `run-pt-stalk` file, and the value shoule be in base64 format:
+```
+32   "[client]" \
+33   "user=$(echo -n eHh4eHh4 | base64 -d)" \
+34   "password=$(echo -n eHh4eHh4 | base64 -d)" \
+```
+
 ## how to send mail when problems occur
 
 Everyone can change for following code in pt-stalk script to send mail:
