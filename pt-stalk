@@ -852,7 +852,7 @@ collect() {
    if [ "$CMD_TCPDUMP" -a  "$OPT_COLLECT_TCPDUMP" ]; then
       local port=$(awk '/^port/{print $2}' "$d/$p-variables")
       if [ "$port" ]; then
-         $CMD_TCPDUMP -i any -s 65535 -x -nn -q -tttt port ${port} > "$d/$p-tcpdump" &
+         $CMD_TCPDUMP -i any -c 50000 -s 65535 -x -nn -q -tttt port ${port} > "$d/$p-tcpdump" &
          tcpdump_pid=$!
       fi
    fi
