@@ -4,5 +4,5 @@ function trg_plugin()
 {
    local mysqld_pids=$(pidof mysqld|sed -e 's/ /,/g')
    local mysqld_nums=$(echo $mysqld_pids | grep -o -P '\d+' | wc -l)
-   top -d 0.2 -bn 5 -p $mysqld_pids | grep 'mysqld' | tail -n $mysqld_nums | perl -ane '$sum += $F[8]; END{print int($sum) . "\n"}'
+   top -d 0.2 -bn 5 -p $mysqld_pids | grep 'mysqld' | tail -n $mysqld_nums | perl -ane '$sum += $F[8]; END{ $sum = 100 if $sum > 1000; print int($sum) . "\n"}'
 }
