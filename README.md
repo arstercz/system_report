@@ -54,4 +54,5 @@ and add the following features:
 ```
 1. capture traffic by use tcpdump;
 2. output numa information;
+3. record mysql process oom_score
 ```
