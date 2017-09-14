@@ -802,6 +802,10 @@ collect() {
       mysqld_pid=$($CMD_CAT $mysqld_pid_file | awk '{print $2; exit;}')
    fi
 
+   if kill -0 $mysqld_pid >/dev/null 2>&1; then
+       $CMD_CAT /proc/$mysqld_pid/oom_score > "$d/$p-oom_score"
+   fi
+
    if [ "$CMD_PMAP" -a "$mysqld_pid" ]; then
       if $CMD_PMAP --help 2>&1 | grep -- -x >/dev/null 2>&1 ; then
          $CMD_PMAP -x $mysqld_pid > "$d/$p-pmap"
