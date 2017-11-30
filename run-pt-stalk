@@ -37,6 +37,6 @@ CURDIR=$(dirname $0)
 
   $CURDIR/pt-stalk --defaults-file=$CURDIR/db.cnf --sleep 20 --function \
     "$CURDIR/plugin/trg_cpu_usage" --threshold 300 --collect-tcpdump --cycles=3 \
-    --log $CURDIR/log/pt-stalk.log --notify-by-email sysadmin@admin.com 
+    --log $CURDIR/log/pt-stalk.log --notify-by-email sysadmin@admin.com \
     --collect-strace --pid=$CURDIR/pid/pid_$PORT --daemonize
 ) 300> $CURDIR/lock/run_$PORT.lock
