@@ -1002,6 +1002,10 @@ collect() {
       kill -s 2 $strace_pid
       sleep 1
       kill -s 15 $strace_pid
+      sleep 1
+      if kill -0 $strace_pid >/dev/null 2>&1; then
+          kill -s 9 $strace_pid
+      fi
       [ "$mysqld_pid" ] && kill -s 18 $mysqld_pid
    fi
 
