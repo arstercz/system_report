@@ -2,9 +2,16 @@
 
 function trg_plugin()
 {
-   local mysqld_pids=$(pidof mysqld|sed -e 's/ /,/g')
-   local mysqld_nums=$(echo $mysqld_pids | grep -o -P '\d+' | wc -l)
-   top -d 0.2 -bn 5 -p $mysqld_pids | grep 'mysqld' | \
-       tail -n $mysqld_nums | \
+   local mysqld_pid=0
+   mysqld_pid_file=$($CMD_MYSQL $EXT_ARGV -Bse 'SHOW GLOBAL VARIABLES LIKE "pid_file"' | awk '{print $2}')
+   if [ -e "$mysqld_pid_file" ]; then
+      mysqld_pid=$($CMD_CAT $mysqld_pid_file)
+   fi
+   if [ "$mysqld_pid" -eq 0 ]; then
+      echo "0"
+   fi
+
+   top -d 0.2 -bn 5 -p $mysqld_pid | grep 'mysqld' | \
+       tail -n 1 | \
        perl -ane '$sum += $F[8]; END{ $sum = 100 if $sum > 1000; print int($sum) . "\n"}'
 }
