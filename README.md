@@ -5,7 +5,7 @@ Wrap pt-stalk to collect forensic data about MySQL when problems occur
 
 The `run-pt-stalk` wrap the pt-stalk script, run with:
 ```
-git clone https://github.com/chenzhe07/system_report.git
+git clone https://github.com/arstercz/system_report.git
 cd system_report
 ./run-pt-stalk interface mysql_port
 ```
