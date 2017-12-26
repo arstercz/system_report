@@ -797,9 +797,9 @@ collect() {
    local p="$2"  # prefix for each result file
 
    local mysqld_pid=$(_pidof mysqld | awk '{print $1; exit;}')
-   local mysqld_pid_file=$($CMD_MYSQL $EXT_ARGV -Bse 'SHOW GLOBAL VARIABLES LIKE "pid_file"')
+   local mysqld_pid_file=$($CMD_MYSQL $EXT_ARGV -Bse 'SHOW GLOBAL VARIABLES LIKE "pid_file"' | awk '{print $2}')
    if [ -e "$mysqld_pid_file" ]; then
-      mysqld_pid=$($CMD_CAT $mysqld_pid_file | awk '{print $2; exit;}')
+      mysqld_pid=$($CMD_CAT $mysqld_pid_file)
    fi
 
    if kill -0 $mysqld_pid >/dev/null 2>&1; then
@@ -1325,7 +1325,7 @@ stalk() {
          # Send email to whomever that collect has been triggered.
          if [ "$OPT_NOTIFY_BY_EMAIL" ]; then
             echo "$msg on $(hostname)" \
-            | mail -r 'report@system' -S smtp='127.0.0.1' -s "Collect triggered on $(hostname)" \
+            | mail -r 'system_report@laohu.com' -S smtp='10.144.127.21' -s "Collect triggered on $(hostname)" \
               "$OPT_NOTIFY_BY_EMAIL"
          fi
 
