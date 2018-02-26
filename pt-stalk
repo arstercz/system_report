@@ -1280,6 +1280,7 @@ stalk() {
    local cycles_true=0   # increment each time check is true, else set to 0
    local matched=""      # set to "yes" when check is true
    local last_prefix=""  # prefix of last collection
+   local THRESHOLD2=$((2*$OPT_THRESHOLD)) # upper limit threshold value
 
    while oktorun; do
       # Run the trigger which returns the value of whatever is being
@@ -1293,7 +1294,7 @@ stalk() {
             warn "Detected value is empty; something failed?  Trigger exit status: $trg_exit_status"
             matched=""
             cycles_true=0
-         elif (( $(echo "$value $OPT_THRESHOLD" | awk '{print ($1 > $2)}') )); then
+         elif (( $(echo "$value $OPT_THRESHOLD $THRESHOLD2" | awk '{print ($1 > $2 && $1 < $3)}') )); then
             matched="yes"
             cycles_true=$(($cycles_true + 1))
          else
